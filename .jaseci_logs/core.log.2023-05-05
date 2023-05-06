@@ -1,0 +1,2 @@
+2023-05-05 07:51:44,264 - ERROR - rt_error: main.jac:type_command_with_keyBoard - line 44, col 29 - rule atom_trailer - Invalid arguments {'args': [], 'kwargs': {}} to action call keyboard.type_command! Valid paramters are (command).
+2023-05-05 07:51:44,283 - ERROR - rt_error: main.jac:type_command_with_keyBoard - line 44, col 29 - rule atom_trailer - Internal Exception: type_command() missing 1 required positional argument: 'command'

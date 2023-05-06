@@ -1,4 +1,3 @@
-import re
 import keras_ocr
 import time
 from PIL import Image
@@ -13,31 +12,27 @@ import os
 @jaseci_action(act_group=["screen"], allow_remote=True)
 def screenshot_to_text():
     # take screenshot
-    screenshot = ImageGrab.grab()
+    # screenshot = ImageGrab.grab()
 
     # convert to grayscale
-    screenshot = screenshot.convert('L')
+    # screenshot = screenshot.convert('L')
     time.sleep(4)
 
     screenshot = pyautogui.screenshot()
+    screenshot.save('screenshot.png')
+
+    # perform OCR
     text = pytesseract.image_to_string(screenshot)
-    # text = extract_number(text)
     print(text)
 
+    # save screenshot to current directory
+    # current_dir = os.getcwd()
+    # screenshot_path = os.path.join(current_dir, 'screenshot.png')
+    # screenshot.save(screenshot_path)
     return text
 
 
-def extract_number(text):
-    regex = r"window 1.*?(\d{5})"
-    match = re.search(regex, text, re.DOTALL)
-
-    if match:
-        number = match.group(1)
-        return number
-    else:
-        return None
-    
-screenshot_to_text()
+# # screenshot_to_text()
 
 
 # # Take a screenshot of the full screen
@@ -56,6 +51,8 @@ screenshot_to_text()
 # prediction_groups = pipeline.recognize([screenshot])
 
 # print(prediction_groups)
+
+
 
 
 # import cv2
@@ -80,23 +77,23 @@ screenshot_to_text()
 #         print(prediction[0])
 
 
-# import easyocr
-# import numpy as np
-# import pyautogui
-# import cv2
+import easyocr
+import numpy as np
+import pyautogui
+import cv2
 
-# # Load the OCR model
-# reader = easyocr.Reader(['en'])
+# Load the OCR model
+reader = easyocr.Reader(['en'])
 
-# # Take a screenshot
-# screenshot = pyautogui.screenshot()
+# Take a screenshot
+screenshot = pyautogui.screenshot()
 
-# # Convert the screenshot to a numpy array
-# image = cv2.cvtColor(np.array(screenshot), cv2.COLOR_RGB2BGR)
+# Convert the screenshot to a numpy array
+image = cv2.cvtColor(np.array(screenshot), cv2.COLOR_RGB2BGR)
 
-# # Perform OCR on the image
-# result = reader.readtext(image)
+# Perform OCR on the image
+result = reader.readtext(image)
 
-# # Print the recognized text
-# for res in result:
-#     print(res[1])
+# Print the recognized text
+for res in result:
+    print(res[1])
